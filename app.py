@@ -6,7 +6,6 @@ from flask import Flask, render_template, redirect, url_for
 from forms import ItemForm
 from models import Items
 from database import db_session
-from sqlalchemy.ext.serializer import loads, dumps
 
 app = Flask(__name__)
 app.secret_key = os.environ['APP_SECRET_KEY']
