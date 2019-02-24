@@ -22,14 +22,13 @@ def add_item():
 
 @app.route("/success")
 def success():
-    results = []
-    Output = {}
+    query_results = []
+    return_object = []
     qry = db_session.query(Items)
-    results = qry.all()
-    for x in range(0,len(results)):
-        for item in results:
-            Output[x]=item.serialize()
-    return json.dumps(Output,indent=4, separators=(',', ': '))
+    query_results = qry.all()
+    for item in query_results:
+        return_object.append(item.serialize())
+    return json.dumps(return_object,indent=4, separators=(',', ': '))
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True)
