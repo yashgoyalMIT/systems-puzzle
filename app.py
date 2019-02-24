@@ -1,10 +1,12 @@
 import datetime
 import os
+import json
 
 from flask import Flask, render_template, redirect, url_for
 from forms import ItemForm
 from models import Items
 from database import db_session
+from sqlalchemy.ext.serializer import loads, dumps
 
 app = Flask(__name__)
 app.secret_key = os.environ['APP_SECRET_KEY']
@@ -22,12 +24,13 @@ def add_item():
 @app.route("/success")
 def success():
     results = []
- 
+    Output = {}
     qry = db_session.query(Items)
     results = qry.all()
-
-    return str(results)
-  
+    for x in range(0,len(results)):
+        for item in results:
+            Output[x]=item.serialize()
+    return json.dumps(Output,indent=4, separators=(',', ': '))
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0')
+    app.run(host='0.0.0.0', debug=True)

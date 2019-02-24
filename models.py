@@ -12,3 +12,10 @@ class Items(Base):
     quantity = Column(Integer)
     description = Column(String(256))
     date_added = Column(DateTime())
+
+    def serialize(self):
+        """ serializes Items into a dictionary """
+        return {"id": self.id,
+                "name": self.name,
+                "quantity": self.quantity,
+                "description": self.description}

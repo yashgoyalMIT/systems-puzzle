@@ -6,6 +6,7 @@ COPY requirements.txt /opt/services/flaskapp/src/
 WORKDIR /opt/services/flaskapp/src
 RUN pip install -r requirements.txt
 COPY . /opt/services/flaskapp/src
-EXPOSE 5001
+ENV PORT 5000
+EXPOSE $PORT
 
 CMD ["python", "app.py"]
